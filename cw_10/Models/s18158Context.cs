@@ -113,7 +113,9 @@ namespace cw_10.Models
                 entity.HasKey(e => e.IdEnrollment)
                     .HasName("Enrollment_pk");
 
-                entity.Property(e => e.IdEnrollment).ValueGeneratedNever();
+                entity.HasIndex(e => e.IdEnrollment)
+                    .HasName("Enrollment_IdEnrollment_uindex")
+                    .IsUnique();
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
 
@@ -228,6 +230,11 @@ namespace cw_10.Models
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.HasOne(d => d.IdEnrollmentNavigation)
+                    .WithMany(p => p.Student)
+                    .HasForeignKey(d => d.IdEnrollment)
+                    .HasConstraintName("IdEnrollment");
             });
 
             modelBuilder.Entity<Studies>(entity =>

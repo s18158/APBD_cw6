@@ -11,5 +11,6 @@ namespace cw_10.Models
         public DateTime StartDate { get; set; }
 
         public virtual Studies IdStudyNavigation { get; set; }
+        public virtual ICollection<Student> Student { get; set; }
     }
 }
